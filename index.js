@@ -39,3 +39,14 @@ app.get('/pdf', (req, res) => {
   });
 });
 
+app.get('/png', (req, res) => {
+  ppp(async page => {
+    await renderPage(page, req.query);
+    res.writeHead(200, {
+      'Content-Type': 'image/png'
+    });
+    res.end(await page.screenshot({
+      fullPage: true
+    }));
+  });
+});
