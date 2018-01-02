@@ -19,20 +19,21 @@ function renderPage(page, query) {
   }
 }
 
-async function ppp(func) {
+async function ppp(next, func) {
   const browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
-  const page = await browser.newPage();
   try {
-    await func(page);
+    await func(await browser.newPage());
+  } catch (e) {
+    next(e);
   } finally {
     browser.close();
   }
 }
 
-app.get('/pdf', (req, res) => {
-  ppp(async page => {
+app.get('/pdf', (req, res, next) => {
+  ppp(next, async page => {
     await renderPage(page, req.query);
     res.writeHead(200, {
       'Content-Type': 'application/pdf'
@@ -41,8 +42,8 @@ app.get('/pdf', (req, res) => {
   });
 });
 
-app.get('/png', (req, res) => {
-  ppp(async page => {
+app.get('/png', (req, res, next) => {
+  ppp(next, async page => {
     await renderPage(page, req.query);
     res.writeHead(200, {
       'Content-Type': 'image/png'
