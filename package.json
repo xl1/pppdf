@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@types/express": "^4.16.0",
     "express": "^4.16.3",
     "puppeteer": "^0.13.0"
   }
