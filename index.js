@@ -1,3 +1,4 @@
+// @ts-check
 const puppeteer = require('puppeteer');
 const express = require('express');
 
