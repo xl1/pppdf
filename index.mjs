@@ -1,10 +1,11 @@
 // @ts-check
-const puppeteer = require('puppeteer');
-const express = require('express');
+import puppeteer from 'puppeteer';
+import express from 'express';
 
 const app = express();
 const server = app.listen(8080, () => console.log('listening'));
 
+/** @param {puppeteer.Page} page */
 function renderPage(page, query) {
   if (query.url) {
     return page.goto(query.url, {
@@ -20,6 +21,10 @@ function renderPage(page, query) {
   }
 }
 
+/**
+ * @param {express.NextFunction} next
+ * @param {function(puppeteer.Page)} func
+ */
 async function ppp(next, func) {
   const browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox']

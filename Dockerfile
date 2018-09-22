@@ -19,6 +19,6 @@ RUN unzip NotoSansCJKjp-hinted.zip && \
 WORKDIR /
 RUN rm -rf /noto
 
-COPY ./index.js .
+COPY ./index.mjs .
 EXPOSE 8080
-CMD ["node", "index.js"]
+CMD ["node", "--experimental-modules", "index.mjs"]
