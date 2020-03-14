@@ -23,7 +23,7 @@ function renderPage(page, query) {
 
 /**
  * @param {express.NextFunction} next
- * @param {function(puppeteer.Page)} func
+ * @param {function(puppeteer.Page): Promise<any>} func
  */
 async function ppp(next, func) {
   const browser = await puppeteer.launch({
